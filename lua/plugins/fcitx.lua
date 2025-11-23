@@ -4,7 +4,7 @@
 -- }
 return {
 	"yulianggan/macism.nvim",
-	event = "InsertEnter",                                  -- 插入模式进入时加载
+	event = "InsertEnter",                                -- 插入模式进入时加载
 	opts = {
 		default_input_source = "com.apple.keylayout.Colemak", -- 设置默认输入法
 	},

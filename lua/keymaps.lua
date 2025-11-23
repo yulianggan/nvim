@@ -85,7 +85,7 @@ local nmappings = {
 	{ from = "<leader><esc>", to = "<nop>" },
 
 	-- Joshuto
-	{ from = "R",             to = ":Joshuto<CR>" },
+	-- { from = "R",             to = ":Joshuto<CR>" },
 }
 
 vim.keymap.set("n", "q", "<nop>", { noremap = true })

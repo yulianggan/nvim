@@ -29,9 +29,11 @@ for _, v in ipairs(lazy_keys) do
 end
 vim.keymap.set("n", "<leader>pl", ":Lazy<CR>", { noremap = true })
 
+
 require("lazy").setup({
 	require("plugins.telescope").config,
 	require("plugins.fzf"),
+	require("plugins.db"),
 	require("plugins.tumx"),
 	require("plugins.python"),
 	require("plugins.fcitx"),

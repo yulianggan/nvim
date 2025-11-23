@@ -128,10 +128,27 @@ local format_on_save_filetypes = {
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
 	callback = function()
-		if format_on_save_filetypes[vim.bo.filetype] then
-			local lineno = vim.api.nvim_win_get_cursor(0)
-			vim.lsp.buf.format({ async = false })
-			pcall(vim.api.nvim_win_set_cursor, 0, lineno)
+		-- ① 这个 buffer 显式关闭自动格式化，就直接退出
+		if vim.b.disable_format_on_save then
+			return
 		end
+
+		-- ② filetype 不在白名单也不格式化
+		if not format_on_save_filetypes[vim.bo.filetype] then
+			return
+		end
+
+		-- ③ 真正执行 LSP 格式化
+		local lineno = vim.api.nvim_win_get_cursor(0)
+		vim.lsp.buf.format({ async = false })
+		pcall(vim.api.nvim_win_set_cursor, 0, lineno)
+	end,
+})
+
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "/Users/mac/code/queries/*", -- 用绝对路径
+	callback = function()
+		vim.b.disable_format_on_save = true
 	end,
 })
